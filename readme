@@ -1,0 +1,10 @@
+This source code in this repo is for the paper titled "Terahertz Spatio-Temporal Deep Learning Computed Tomography".
+
+If you use this code for the research works, please cite the following paper.
+
+@article{hung2022terahertz,
+  title={Terahertz Spatio-Temporal Deep Learning Computed Tomography},
+  author={Hung, Yi-Chun and Chao, Ta-Hsuan and Yu, Pojen and Yang, Shang-Hua},
+  journal={arXiv preprint arXiv:2205.00324},
+  year={2022}
+}
