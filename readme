@@ -2,6 +2,9 @@ This source code in this repo is for the paper titled "Terahertz Spatio-Temporal
 
 If you use this code for the research works, please cite the following paper.
 
+If you have any question, you can reach us through "nick831111@gmail.com".
+Currently, the dataset is open through a request. 
+
 @article{hung2022terahertz,
   title={Terahertz Spatio-Temporal Deep Learning Computed Tomography},
   author={Hung, Yi-Chun and Chao, Ta-Hsuan and Yu, Pojen and Yang, Shang-Hua},

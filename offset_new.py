@@ -1,3 +1,4 @@
+#image_offset={"deer":14,"box":14,"robot":44,"insidehole":14,"eevee":14, "dna": 6}
 
 # imgoffset + gt = training data
 image_offset = {"deer":4,"box":2,"robot":40,"dna":6,"eevee":14,"insidehole":14, "polarbear":-19, "skull":-29}

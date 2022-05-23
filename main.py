@@ -12,15 +12,14 @@ from skimage.transform import iradon_sart, iradon
 from dataloader import THz_dataloader
 from torch.utils.data import DataLoader
 from sklearn.cluster import KMeans
-from model_k_last import THz_SR_net
+from models.model_k_last import THz_SR_net
 from os.path import splitext
 from pathlib import Path
 from scipy.stats import loguniform
-from resnet import resnet152 as ResNet
 from sklearn import preprocessing
 
 np.warnings.filterwarnings('ignore', category=np.VisibleDeprecationWarning)
-base_root_dir = '' #please input your base root directory
+base_root_dir = '/work/alexchao0924/DLCT/'
 
 def weighted_mse_loss(pred, target, weight):
     loss = nn.MSELoss()
@@ -84,6 +83,8 @@ def train(epoch, model, device, opt, training_data_loader, scale, optimizer, cri
     loss_f = os.path.join(opt['out_dir'], "t{}_k{}/loss.txt".format(opt['t_k_size'],opt['sp_k_size']))
     for iteration, batch in enumerate(training_data_loader, 1):
         input, target = batch[0].to(device), batch[1].to(device)
+
+
         order = np.arange(input.shape[2])
         np.random.shuffle(order)
         mask = (target == 0.5).float()
@@ -98,8 +99,6 @@ def train(epoch, model, device, opt, training_data_loader, scale, optimizer, cri
 
 
         print("===> Epoch[{}]({}/{}): Loss: {:.6f}".format(epoch, iteration, len(training_data_loader), epoch_loss/iteration))
-
-
 
     f = open(loss_f,'a+')
     f.write("===> Epoch {} Complete: Training Loss: {:.6f}\n".format(epoch, epoch_loss / len(training_data_loader)))
@@ -199,7 +198,7 @@ def sp_test(epoch, model, opt, device, sp_test_data_loader, image_range, model_o
 
     return loss/ count
 
-def km_separate(data): #This function only uses for the old version of DLCT.
+def km_separate(data):
     km = KMeans(2)
     km_img = km.fit_predict(data.reshape(-1,1)).reshape(data.shape[0],data.shape[1])
     if np.sum(km_img==0) < np.sum(km_img==1):
@@ -207,8 +206,7 @@ def km_separate(data): #This function only uses for the old version of DLCT.
     return km_img
 
 if __name__ == "__main__":
-
-    print('Start run code')
+    print('start run code')
     opt = vars(arg_parser())
     opt['out_dir'] = os.path.join(opt['out_dir'], opt['use_method'] + '_lr' + str(opt['lr']))
     model_out_base_path = os.path.join(opt['out_dir'], "t{}_k{}".format(opt['t_k_size'],opt['sp_k_size']))
@@ -219,7 +217,6 @@ if __name__ == "__main__":
     f = open(param_path, 'a+')
     f.write(str(opt))
     f.close()
-
 
     if_data_parallel = False
     start_epoch_num = 1
